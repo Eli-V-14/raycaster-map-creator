@@ -1,0 +1,13 @@
+import pygetwindow as gw
+
+# Window Dimensions for pygame 
+
+MONITOR_SCREEN = gw.getActiveWindow()
+MONITOR_WIDTH = MONITOR_SCREEN.width
+MONITOR_HEIGHT = MONITOR_SCREEN.height
+
+SCREEN_WIDTH = MONITOR_WIDTH * 0.8
+SCREEN_HEIGHT = MONITOR_HEIGHT * 0.8
+
+
+# print(WINDOW_WIDTH, WINDOW_HEIGHT)
