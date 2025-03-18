@@ -33,3 +33,17 @@ class Button():
         
         # Draw the text on the screen
         screen.blit(text, text_rect)
+
+    def set_fill_color(self, fill_color):
+        self.fill_color = fill_color
+
+    def set_border_color(self, border_color):
+        self.border_color = border_color
+    
+    def set_font(self, font, font_size=None):
+        self.font = font
+        self.font_size = font_size
+
+    def set_text(self, text, text_color=(0,0,0)):
+        self.text = text
+        self.text_color = text_color

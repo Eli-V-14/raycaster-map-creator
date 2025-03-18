@@ -5,17 +5,20 @@ from pygame import Color
 
 pygame.init()
 
-button1 = Button(100, 100, 250, 100, 60, text='Click Me',
-                text_color=Color('white'), 
-                fill_color=Color('darkgoldenrod1'), 
-                border_color=Color('white')
-                )
+# 1st way of defining the button and its features
+button1 = Button(100, 100, 250, 100, 60)
 
+button1.set_border_color(Color('white'))
+button1.set_fill_color(Color('darkgoldenrod1'))
+button1.set_text('Click Me', Color('white'))
+
+# 2nd way of defining the button and its features
 button2 = Button(600, 100, 250, 100, 60, text='You Can\'t',
                 text_color=Color('white'), 
                 fill_color=Color('darkgoldenrod1'), 
                 border_color=Color('white')
                 )
+
 
 run = True
 
