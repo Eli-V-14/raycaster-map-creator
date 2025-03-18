@@ -1,13 +1,13 @@
 import pygame
 
 class Button():
+
     def __init__(self, x, y, width, height, font_size=0, font=None, text='', text_color=(0,0,0),
                  border_color=(0,0,0), fill_color=(255,255,255), scale=1):
         self.x = x
         self.y = y
         self.width = width
         self.height = height
-        
         
         self.text = text
         self.text_color = text_color
@@ -16,6 +16,28 @@ class Button():
         self.border_color = border_color
         self.fill_color = fill_color
         self.scale = scale
+        self.on = 0
+        self.clicked = False
+    
+    def update(self, mouse_pos):
+        # Button Top Left Coordinates
+        tl_x, tl_y = self.x, self.y
+
+        # Button Bottom Right Coordinates
+        br_x, br_y = self.x + self.width, self.y + self.height
+
+        # Mouse Position
+        mouse_x, mouse_y = mouse_pos
+
+        if mouse_x > tl_x and mouse_x < br_x and mouse_y > tl_y and mouse_y < br_y:
+            if self.on == 0:
+                    self.fill_color = tuple([x + 30 if (x < 255 and x > 0) else x for x in list(self.fill_color)])
+                    self.on += 1
+        elif self.on == 1:
+            self.fill_color = tuple([x - 30 if (x < 255 and x > 0) else x for x in list(self.fill_color)])
+            self.on -= 1
+
+
 
     def draw(self, screen):
         # Create the outer rectangle
@@ -47,3 +69,9 @@ class Button():
     def set_text(self, text, text_color=(0,0,0)):
         self.text = text
         self.text_color = text_color
+    
+    def set_scale(self, scale):
+        self.scale = scale
+    
+    def button_clicked(self):
+        self.clicked = True if self.clicked == False else False
