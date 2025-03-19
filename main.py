@@ -52,7 +52,7 @@ class Game:
         while self.running:
             events = pygame.event.get()
             for event in events:
-                if event.type == pygame.QUIT or button2.clicked:
+                if event.type == pygame.QUIT or (event.key == pygame.K_ESCAPE if event.type == pygame.KEYDOWN else False):
                     pygame.quit()
                     exit()
             
@@ -61,6 +61,10 @@ class Game:
 
             if button1.clicked:
                 self.gameStateManager.set_state('level')
+
+            if button2.clicked:
+                pygame.quit()
+                exit()
 
             pygame.display.update()
 
