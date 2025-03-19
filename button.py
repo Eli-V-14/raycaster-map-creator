@@ -16,7 +16,7 @@ class Button():
         self.border_color = border_color
         self.fill_color = fill_color
         self.scale = scale
-        self.on = 0
+        self.on = False
         self.clicked = False
     
     def update(self, mouse_pos):
@@ -29,13 +29,13 @@ class Button():
         # Mouse Position
         mouse_x, mouse_y = mouse_pos
 
-        if mouse_x > tl_x and mouse_x < br_x and mouse_y > tl_y and mouse_y < br_y:
-            if self.on == 0:
+        if tl_x < mouse_x < br_x and tl_y < mouse_y < br_y:
+            if not self.on:
                     self.fill_color = tuple([x + 30 if (x < 255 and x > 0) else x for x in list(self.fill_color)])
-                    self.on += 1
-        elif self.on == 1:
+                    self.on = True
+        elif self.on:
             self.fill_color = tuple([x - 30 if (x < 255 and x > 0) else x for x in list(self.fill_color)])
-            self.on -= 1
+            self.on = False
 
 
 
@@ -74,4 +74,4 @@ class Button():
         self.scale = scale
     
     def button_clicked(self):
-        self.clicked = True if self.clicked == False else False
+        self.clicked = not self.clicked
