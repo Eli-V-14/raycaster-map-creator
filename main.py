@@ -3,6 +3,9 @@ from settings import *
 from button import Button
 from pygame import Color
 
+from menus import Start
+from level import Level
+from gameStateManager import GameStateManager
 
 BUTTON_WIDTH = WINDOW_WIDTH * 0.13
 BUTTON_HEIGHT = WINDOW_HEIGHT * 0.1
@@ -37,15 +40,16 @@ class Game:
         pygame.init()    
         self.running = True
         self.screen = pygame.display.set_mode((WINDOW_WIDTH, WINDOW_HEIGHT))
+        buttons = [button1, button2]
 
         pygame.display.flip()
         
         self.gameStateManager = GameStateManager('start')
-        self.start = Start(self.screen, self.gameStateManager)
+        self.start = Start(self.screen, self.gameStateManager, buttons)
         self.level = Level(self.screen, self.gameStateManager)
 
         self.states = {'start':self.start,
-                  'level':self.level}
+                       'level':self.level}
         
     
     def run(self):
@@ -57,7 +61,7 @@ class Game:
                     exit()
             
             self.states[self.gameStateManager.get_state()].run(event)
-            event = None
+            
 
             if button1.clicked:
                 self.gameStateManager.set_state('level')
@@ -66,55 +70,10 @@ class Game:
                 pygame.quit()
                 exit()
 
+            event = None
             pygame.display.update()
 
         pygame.quit()
-
-class Level:
-    def __init__(self, display, gameStateManager):
-        self.display = display
-        self.gameStateManager = gameStateManager
-    
-    def run(self, event):
-        # left_col = pygame.Rect()
-        self.display.fill(Color('powderblue'))
-        
-
-class Start:
-    def __init__(self, display, gameStateManager):
-        self.display = display
-        self.gameStateManager = gameStateManager
-
-        self.font = pygame.font.Font(None, int(WINDOW_HEIGHT * 0.15))
-        self.text = self.font.render('Raycast Map Creator', True, Color('white'))
-        self.rect = self.text.get_rect()
-
-    def update(self, event):
-        mouse_pos = pygame.mouse.get_pos()
-        self.display.fill(Color('powderblue'))
-        self.display.blit(self.text, ((WINDOW_WIDTH / 2) - self.rect.bottomright[0] * 1/2, int(WINDOW_HEIGHT * 0.25)))
-
-        buttons = [button1, button2]
-
-        for button in buttons:
-            button.draw(self.display)
-            button.update(mouse_pos)
-            if event != None and button.on and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                button.button_clicked()
-                print(button.clicked)
-    
-    def run(self, event):
-        self.update(event)
-
-class GameStateManager:
-    def __init__(self, currentState):
-        self.currentState = currentState
-
-    def get_state(self):
-        return self.currentState
-    
-    def set_state(self, state):
-        self.currentState = state
 
 if __name__ == '__main__':
     game = Game()

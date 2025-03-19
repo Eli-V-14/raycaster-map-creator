@@ -3,7 +3,7 @@ import pygame
 class Button():
 
     def __init__(self, x, y, width, height, font_size=0, font=None, text='', text_color=(0,0,0),
-                 border_color=(0,0,0), fill_color=(255,255,255), scale=1):
+                 border_color=(0,0,0), fill_color=(255,255,255)):
         self.x = x
         self.y = y
         self.width = width
@@ -15,7 +15,6 @@ class Button():
         self.font_size = font_size
         self.border_color = border_color
         self.fill_color = fill_color
-        self.scale = scale
         self.on = False
         self.clicked = False
     
@@ -69,9 +68,6 @@ class Button():
     def set_text(self, text, text_color=(0,0,0)):
         self.text = text
         self.text_color = text_color
-    
-    def set_scale(self, scale):
-        self.scale = scale
     
     def button_clicked(self):
         self.clicked = not self.clicked
