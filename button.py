@@ -3,7 +3,7 @@ import pygame
 class Button():
 
     def __init__(self, x, y, width, height, font_size=0, font=None, text='', text_color=(0,0,0),
-                 border_color=(0,0,0), fill_color=(255,255,255)):
+                 border_color=(0,0,0), fill_color=(255,255,255), switch=False):
         self.x = x
         self.y = y
         self.width = width
@@ -15,8 +15,14 @@ class Button():
         self.font_size = font_size
         self.border_color = border_color
         self.fill_color = fill_color
+
+        
+        self.switch = switch
+
         self.on = False
         self.clicked = False
+        self.color_change = False
+        
     
     def update(self, mouse_pos):
         # Button Top Left Coordinates
@@ -30,13 +36,15 @@ class Button():
 
         if tl_x < mouse_x < br_x and tl_y < mouse_y < br_y:
             if not self.on:
-                    self.fill_color = tuple([x + 30 if (x < 255 and x > 0) else x for x in list(self.fill_color)])
-                    self.on = True
+                self.fill_color = tuple([min(x + 30, 255) for x in list(self.fill_color)])
+                self.on = True
+                 
         elif self.on:
-            self.fill_color = tuple([x - 30 if (x < 255 and x > 0) else x for x in list(self.fill_color)])
+            self.fill_color = tuple([max(x - 30, 0) for x in list(self.fill_color)])
             self.on = False
-
-
+        
+        
+            
 
     def draw(self, screen):
         # Create the outer rectangle
@@ -50,7 +58,7 @@ class Button():
         # Render the text
         font = pygame.font.Font(self.font, self.font_size)
         text = font.render(self.text, True, self.text_color)
-        text_rect = text.get_rect(center=outer_rect.center)
+        text_rect = text.get_rect(center=inner_rect.center)
         
         # Draw the text on the screen
         screen.blit(text, text_rect)
@@ -71,3 +79,8 @@ class Button():
     
     def button_clicked(self):
         self.clicked = not self.clicked
+        if self.switch:
+            self.fill_color = tuple([min(x + 50, 255) for x in list(self.fill_color)]) if self.clicked else tuple([max(x - 50, 0) for x in list(self.fill_color)])
+
+    def is_switch(self):
+        self.switch = not self.switch

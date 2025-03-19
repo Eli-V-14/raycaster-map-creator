@@ -14,6 +14,7 @@ class Start:
 
     def update(self, event):
         mouse_pos = pygame.mouse.get_pos()
+
         self.display.fill(Color('powderblue'))
         self.display.blit(self.text, ((WINDOW_WIDTH / 2) - self.rect.bottomright[0] * 1/2, int(WINDOW_HEIGHT * 0.25)))
 

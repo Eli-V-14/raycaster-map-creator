@@ -21,7 +21,7 @@ button1 = Button(WINDOWN_HALF_WIDTH - HALF_BUTTON_WIDTH,
                  int(WINDOW_HEIGHT * 0.05))
 
 button1.set_border_color(Color('white'))
-button1.set_fill_color(Color('dodgerblue4'))
+button1.set_fill_color(Color('navyblue'))
 button1.set_text('Play', Color('white'))
 
 # 2nd way of defining the button and its features
@@ -31,7 +31,7 @@ button2 = Button(WINDOWN_HALF_WIDTH - HALF_BUTTON_WIDTH,
                  int(WINDOW_HEIGHT * 0.05), 
                  text='Exit',
                  text_color=Color('white'), 
-                 fill_color=Color('dodgerblue4'), 
+                 fill_color=Color('navyblue'), 
                  border_color=Color('white'))
 
 
