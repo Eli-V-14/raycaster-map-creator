@@ -1,4 +1,5 @@
 from settings import *
+from map import Map
 from pygame import Color
 import pygame
 
@@ -6,6 +7,8 @@ class Level:
     def __init__(self, display, gameStateManager):
         self.display = display
         self.gameStateManager = gameStateManager
+        self.map = Map(self.display, 8, 8)
+        self.map.make_map()
         self.rows = ''
         self.col = ''
     
@@ -21,4 +24,6 @@ class Level:
         title_rect.y = WINDOW_HEIGHT * 0.05
         
         self.display.blit(title, title_rect)
+
+        self.map.update(event)
         
