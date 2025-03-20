@@ -13,6 +13,7 @@ class Level:
         self.col = ''
     
     def run(self, event):
+        
         left_col = pygame.Rect(0, 0, WINDOW_WIDTH * 1/6, WINDOW_HEIGHT)
 
         self.display.fill(Color('powderblue'))
