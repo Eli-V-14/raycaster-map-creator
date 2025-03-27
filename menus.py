@@ -13,10 +13,11 @@ class Start:
         self.text = self.font.render('Raycast Map Creator', True, Color('white'))
         self.rect = self.text.get_rect()
 
-    def update(self, event):
+    def update(self, events):
         self.display.fill(Color('powderblue'))
         self.display.blit(self.text, ((WINDOW_WIDTH / 2) - self.rect.bottomright[0] * 1/2, int(WINDOW_HEIGHT * 0.25)))
-        Button.update_buttons(self.display, event, self.buttons)
+        for button in self.buttons:
+            Button.update_buttons(self.display, events, button)
         
-    def run(self, event):
-        self.update(event)
+    def run(self, events):
+        self.update(events)

@@ -24,6 +24,8 @@ button1.set_border_color(Color('white'))
 button1.set_fill_color(Color('navyblue'))
 button1.set_text('Play', Color('white'))
 
+stuff = ()
+
 # 2nd way of defining the button and its features
 button2 = Button(WINDOWN_HALF_WIDTH - HALF_BUTTON_WIDTH, 
                  WINDOW_HALF_HEIGHT + BUTTON_HEIGHT * 1.75, 
@@ -60,9 +62,8 @@ class Game:
                     pygame.quit()
                     exit()
             
-            self.states[self.gameStateManager.get_state()].run(event)
+            self.states[self.gameStateManager.get_state()].run(events)
             
-
             if button1.clicked:
                 self.gameStateManager.set_state('level')
 

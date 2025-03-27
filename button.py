@@ -1,3 +1,4 @@
+# from map import Map
 import pygame
 
 class Button():
@@ -88,16 +89,17 @@ class Button():
     def adjust_fill_color(self, amount):
         if amount > 0:
             self.fill_color = tuple(min(255, x + amount) for x in self.fill_color)
+            # cursor = pygame.cursors.compile(pygame.cursors.textmarker_strings)
+            # pygame.mouse.set_cursor((16, 16), (0, 0), *cursor)
         else:
             self.fill_color = tuple(max(0, x + amount) if x != 255 else 255 for x in self.fill_color)
+            # pygame.mouse.set_cursor(*pygame.cursors.arrow)
 
-    def update_buttons(display, event, buttons, map=None):
+    def update_buttons(display, events, button):
         mouse_pos = pygame.mouse.get_pos()
-        for button in buttons:
-            button.draw(display)
-            button.update(mouse_pos)
+        button.draw(display)
+        button.update(mouse_pos)
+        for event in events:
             if event != None and button.on and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 button.button_clicked()
                 print(button.clicked)
-                if map is not None:
-                    print(map)
