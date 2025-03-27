@@ -48,7 +48,7 @@ class Map:
     
     def update(self, events):
         for button in self.buttons:
-            Button.update_buttons(self.display, events, button)
+            button.update_buttons(self.display, events)
 
     def get_map(self):
         return self.map

@@ -52,11 +52,9 @@ class TextField:
         print(event.key)
         print(pygame.K_BACKSPACE)
         if event.key == pygame.K_BACKSPACE:
-            # Handle backspace
             self.text = self.text[:-1]
         elif event.key == pygame.K_KP_ENTER:
-            # Handle Enter key if necessary
-            pass
+            self.field_clicked()
         elif self.numeric:
             if pygame.K_0 <= event.key <= pygame.K_9:
                 number = self.text + chr(event.key)
@@ -85,18 +83,23 @@ class TextField:
     def field_clicked(self):
         self.clicked = not self.clicked
     
-    def update_fields(display, events, field):
+    def update_fields(self, display, events):
         mouse_pos = pygame.mouse.get_pos()
-        field.draw(display)
-        field.update(mouse_pos)
+        self.draw(display)
+        self.update(mouse_pos)
+
         for event in events:
-            if event != None and field.on:
-                if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                    field.field_clicked()
-                    print(field.clicked)
-                elif event.type == pygame.KEYDOWN:
-                    if field.clicked:
-                        field.set_text(event)
+            if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                if self.is_mouse_over(mouse_pos):
+                    self.field_clicked()  
+                else:
+                    self.clicked = False
+
+            if event.type == pygame.KEYDOWN:
+                if self.clicked:
+                    self.set_text(event)
+
+            
 
             
     

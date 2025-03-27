@@ -17,7 +17,7 @@ class Start:
         self.display.fill(Color('powderblue'))
         self.display.blit(self.text, ((WINDOW_WIDTH / 2) - self.rect.bottomright[0] * 1/2, int(WINDOW_HEIGHT * 0.25)))
         for button in self.buttons:
-            Button.update_buttons(self.display, events, button)
+            button.update_buttons(self.display, events)
         
     def run(self, events):
         self.update(events)

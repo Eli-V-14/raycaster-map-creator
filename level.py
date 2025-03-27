@@ -4,7 +4,8 @@ from textfield import TextField
 from pygame import Color
 import pygame
 
-text1 = TextField(120, 200, 200, 75, font_size=16, numeric=True)
+text1 = TextField(WINDOW_WIDTH * 1/12 - 100, WINDOW_HEIGHT * 1/4, 200, 75, font_size=40, numeric=True)
+text2 = TextField(WINDOW_WIDTH * 1/12 - 100, WINDOW_HEIGHT * 1/2, 200, 75, font_size=40, numeric=True)
 
 class Level:
     def __init__(self, display, gameStateManager):
@@ -13,7 +14,7 @@ class Level:
         self.map = Map(self.display, 8, 8)
         self.rows = ''
         self.col = ''
-        self.fields = [text1]
+        self.fields = [text1, text2]
     
     def run(self, events):
         
@@ -29,7 +30,7 @@ class Level:
         
         self.display.blit(title, title_rect)
         for field in self.fields:
-            TextField.update_fields(self.display, events, field)
+            field.update_fields(self.display, events)
 
         self.map.update(events)
         

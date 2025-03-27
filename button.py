@@ -95,11 +95,11 @@ class Button():
             self.fill_color = tuple(max(0, x + amount) if x != 255 else 255 for x in self.fill_color)
             # pygame.mouse.set_cursor(*pygame.cursors.arrow)
 
-    def update_buttons(display, events, button):
+    def update_buttons(self, display, events):
         mouse_pos = pygame.mouse.get_pos()
-        button.draw(display)
-        button.update(mouse_pos)
+        self.draw(display)
+        self.update(mouse_pos)
         for event in events:
-            if event != None and button.on and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
-                button.button_clicked()
-                print(button.clicked)
+            if event != None and self.on and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
+                self.button_clicked()
+                print(self.clicked)
