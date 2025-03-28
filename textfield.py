@@ -3,7 +3,15 @@ import pygame
 
 
 class TextField:
-    def __init__(self, x, y, width, height, font_size=0, font=None, text="", fill_color=(255,255,255), invert_colors=False, numeric=False):
+    def __init__(self, x, y, width, height, font_size=0, font=None, text="", 
+                 fill_color=(255,255,255), border_color = (0,0,0), 
+                 invert_colors=False, numeric=False):
+        
+        self.on = False
+        self.clicked = False
+        self.upper_limit = 15
+        self.lower_limit = 0
+
         self.x = x
         self.y = y
         self.width = width
@@ -12,25 +20,25 @@ class TextField:
         self.font = font
         self.text = text
         self.fill_color = fill_color
-        self.invert_colors = invert_colors
+        self.border_current = fill_color
+        self.border_change = border_color
+        self.invert_colors = Color('black') if invert_colors else Color('white')
         self.numeric = numeric
         self.text_color = Color('white') if invert_colors else Color('black')
 
-        self.on = False
-        self.clicked = False
-        self.upper_limit = 20
-        self.lower_limit = 0
+        
     
     def draw(self, screen):
         rect = pygame.Rect((self.x, self.y, self.width, self.height))
-        pygame.draw.rect(screen, self.fill_color, rect)
+        pygame.draw.rect(screen, self.border_current, rect)
 
-        # Render the text
+        inner_rect = pygame.Rect((self.x + 3, self.y + 3, self.width - 6, self.height - 6))
+        pygame.draw.rect(screen, self.fill_color, inner_rect)
+
         font = pygame.font.Font(self.font, self.font_size)
         text = font.render(self.text, True, self.text_color)
         text_rect = text.get_rect(center=rect.center)
         
-        # Draw the text on the screen
         screen.blit(text, text_rect)
     
     def update(self, mouse_pos):
@@ -43,22 +51,20 @@ class TextField:
             pygame.mouse.set_cursor()
             self.on = False
             
-            
-
     def get_text(self):
         return self.text
     
     def set_text(self, event):
-        print(event.key)
-        print(pygame.K_BACKSPACE)
+        # print(event.key)
         if event.key == pygame.K_BACKSPACE:
             self.text = self.text[:-1]
         elif event.key == pygame.K_KP_ENTER:
-            self.field_clicked()
+            self.clicked = False
+            self.border_current = self.fill_color
         elif self.numeric:
             if pygame.K_0 <= event.key <= pygame.K_9:
                 number = self.text + chr(event.key)
-                print(number)
+                # print(number)
                 if self.lower_limit <= int(number) <= self.upper_limit:
                     self.text = number
         else:
@@ -82,6 +88,10 @@ class TextField:
     
     def field_clicked(self):
         self.clicked = not self.clicked
+        if self.clicked:
+            self.border_current = self.border_change
+        else:
+            self.border_current = self.fill_color
     
     def update_fields(self, display, events):
         mouse_pos = pygame.mouse.get_pos()
@@ -91,9 +101,10 @@ class TextField:
         for event in events:
             if event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 if self.is_mouse_over(mouse_pos):
-                    self.field_clicked()  
+                    self.field_clicked()
                 else:
                     self.clicked = False
+                    self.border_current = self.fill_color
 
             if event.type == pygame.KEYDOWN:
                 if self.clicked:

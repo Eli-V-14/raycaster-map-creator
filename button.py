@@ -102,4 +102,4 @@ class Button():
         for event in events:
             if event != None and self.on and event.type == pygame.MOUSEBUTTONUP and event.button == 1:
                 self.button_clicked()
-                print(self.clicked)
+                # print(self.clicked)
