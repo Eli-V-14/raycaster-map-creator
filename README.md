@@ -1,7 +1,5 @@
 # raycaster-map-creator
-A python coded project used to create a 2D array map.
-The map creator is used to showcase raycasting for a 
-separate project, but is used to have set-up maps.
+A python coded project used to create a 2D array map. The map creator is used to showcase raycasting for a separate project, but is used to have set-up maps. Created using the concepts of Object-Oriented Programming, along with game-oriented concepts.
 
 # Default Settings for Development
 - Python Version: 3.12.#
