@@ -1,4 +1,4 @@
-# aycaster-map-creator
+# raycaster-map-creator
 A python coded project used to create a 2D array map.
 The map creator is used to showcase raycasting for a 
 separate project, but is used to have set-up maps.
